@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Personal Profile</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            margin-bottom: 1rem;
+            object-fit: cover;
+        }
+        
+        .profile-name {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .profile-title {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        nav {
+            background-color: var(--secondary-color);
+            padding: 1rem 0;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 15px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+        
+        section {
+            padding: 3rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--secondary-color);
+        }
+        
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .skill-tag {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .experience-item, .education-item {
+            margin-bottom: 2rem;
+            border-left: 3px solid var(--primary-color);
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .experience-item:before, .education-item:before {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            left: -9px;
+            top: 5px;
+        }
+        
+        .experience-date, .education-date {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        
+        .experience-title, .education-degree {
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+            color: var(--secondary-color);
+        }
+        
+        .experience-company, .education-school {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .project-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .project-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .project-info {
+            padding: 1.5rem;
+        }
+        
+        .project-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .project-tag {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            padding: 0.3rem 0.7rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+        
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            transition: background-color 0.3s;
+            text-decoration: none;
+        }
+        
+        .social-link:hover {
+            background-color: #2980b9;
+        }
+        
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .footer-text {
+            margin-bottom: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .profile-name {
+                font-size: 2rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 5px 0;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="/api/placeholder/150/150" alt="Profile Image" class="profile-img">
+            <h1 class="profile-name">Your Name</h1>
+            <p class="profile-title">Professional Title or Tagline</p>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Hello! I'm [Your Name], a [Your Profession] with [X years] of experience specializing in [Your Specialization]. I'm passionate about [Your Passion] and dedicated to [Your Goal or Mission].</p>
+                    <p>I have a proven track record of [Your Achievements] and excel at [Your Skills]. I'm constantly learning and exploring new technologies to stay at the forefront of my field.</p>
+                    <p>When I'm not working, you can find me [Your Hobbies or Interests]. I believe in [Your Personal Philosophy or Values] and bring that perspective to everything I do.</p>
+                    
+                    <div class="skills">
+                        <span class="skill-tag">Skill 1</span>
+                        <span class="skill-tag">Skill 2</span>
+                        <span class="skill-tag">Skill 3</span>
+                        <span class="skill-tag">Skill 4</span>
+                        <span class="skill-tag">Skill 5</span>
+                        <span class="skill-tag">Skill 6</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="experience" style="background-color: #f5f5f5;">
+        <div class="container">
+            <h2 class="section-title">Work Experience</h2>
+            
+            <div class="experience-item">
+                <div class="experience-date">Jan 2022 - Present</div>
+                <h3 class="experience-title">Job Title</h3>
+                <div class="experience-company">Company Name, Location</div>
+                <p>Description of your responsibilities and achievements in this role. Highlight specific projects, initiatives, or results that demonstrate your skills and impact.</p>
+            </div>
+            
+            <div class="experience-item">
+                <div class="experience-date">Mar 2019 - Dec 2021</div>
+                <h3 class="experience-title">Previous Job Title</h3>
+                <div class="experience-company">Previous Company Name, Location</div>
+                <p>Description of your responsibilities and achievements in this role. Focus on quantifiable accomplishments and the skills you developed or applied.</p>
+            </div>
+            
+            <div class="experience-item">
+                <div class="experience-date">Jun 2017 - Feb 2019</div>
+                <h3 class="experience-title">Earlier Job Title</h3>
+                <div class="experience-company">Earlier Company Name, Location</div>
+                <p>Description of your responsibilities and achievements in this role. Emphasize how this experience contributed to your professional growth and prepared you for subsequent roles.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="education">
+        <div class="container">
+            <h2 class="section-title">Education</h2>
+            
+            <div class="education-item">
+                <div class="education-date">2015 - 2019</div>
+                <h3 class="education-degree">Degree Name</h3>
+                <div class="education-school">University or Institution Name, Location</div>
+                <p>Brief description of your academic focus, achievements, relevant coursework, or extracurricular activities. Include your GPA if it's impressive.</p>
+            </div>
+            
+            <div class="education-item">
+                <div class="education-date">2013 - 2015</div>
+                <h3 class="education-degree">Previous Degree or Certification</h3>
+                <div class="education-school">Previous Institution Name, Location</div>
+                <p>Brief description of your studies and any notable achievements or activities.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="projects" style="background-color: #f5f5f5;">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            
+            <div class="projects-grid">
+                <div class="project-card">
+                    <img src="/api/placeholder/300/200" alt="Project 1" class="project-img">
+                    <div class="project-info">
+                        <h3 class="project-title">Project Name 1</h3>
+                        <p>Description of the project, including its purpose, your role, technologies used, and outcomes. Highlight any challenges you overcame or innovative solutions you implemented.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Technology 1</span>
+                            <span class="project-tag">Technology 2</span>
+                            <span class="project-tag">Technology 3</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <img src="/api/placeholder/300/200" alt="Project 2" class="project-img">
+                    <div class="project-info">
+                        <h3 class="project-title">Project Name 2</h3>
+                        <p>Description of the project, including its purpose, your role, technologies used, and outcomes. Emphasize the impact or results of the project.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Technology 1</span>
+                            <span class="project-tag">Technology 2</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <img src="/api/placeholder/300/200" alt="Project 3" class="project-img">
+                    <div class="project-info">
+                        <h3 class="project-title">Project Name 3</h3>
+                        <p>Description of the project, including its purpose, your role, technologies used, and outcomes. Mention any recognition or positive feedback received.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Technology 1</span>
+                            <span class="project-tag">Technology 2</span>
+                            <span class="project-tag">Technology 3</span>
+                            <span class="project-tag">Technology 4</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Me</h2>
+            
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+            
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p class="footer-text">© 2025 Your Name. All Rights Reserved.</p>
+            <p>Designed with <i class="fas fa-heart" style="color: #e74c3c;"></i> by Your Name</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 70,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Form submission handling (for demonstration)
+        const contactForm = document.querySelector('.contact-form');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('This is a demo form. In a real implementation, this would send your message.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
